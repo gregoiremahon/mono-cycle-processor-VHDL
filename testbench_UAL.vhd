@@ -73,6 +73,71 @@ begin
         wait for 10 ns;
         assert s = x"fffffffd" and n = '1' report "Test case 6 [B COPY NEGATIVE] failed" severity error;
 
+
+	-- Test case 7 : SUB positive from negative number
+	op <= "10";
+	a <= x"00000001";
+	b <= x"fffffffc";
+	wait for 10 ns;
+	assert s = x"00000003" and n = '0' report "Test case 7 [SUB negative from positive] failed" severity error;
+
+
+        -- Test case 8 : ADD negative number to negative number
+        op <= "00";
+        a <= x"fffffffc";
+        b <= x"fffffffe";
+        wait for 10 ns;
+        assert s = x"fffffffa" and n = '1' report "Test case 8 [ADD negative to negative] failed" severity error;
+
+        -- Test case 9 : SUB negative number from positive number
+        op <= "10";
+        a <= x"00000001";
+        b <= x"fffffffe";
+        wait for 10 ns;
+        assert s = x"00000003" and n = '0' report "Test case 9 [SUB negative from positive] failed" severity error;
+
+        -- Test case 10 : SUB positive number from negative number
+        op <= "10";
+        a <= x"fffffffe";
+        b <= x"00000001";
+        wait for 10 ns;
+        assert s = x"fffffffd" and n = '1' report "Test case 10 [SUB positive from negative] failed" severity error;
+
+        -- Test case 11 : ADD largest positive number with itself
+        op <= "00";
+        a <= x"7fffffff";
+        b <= x"7fffffff";
+        wait for 10 ns;
+        assert s = x"fffffffe" and n = '1' report "Test case 11 [ADD largest positive with itself] failed" severity error;
+
+        -- Test case 12 : ADD smallest negative number with itself
+        op <= "00";
+        a <= x"80000000";
+        b <= x"80000000";
+        wait for 10 ns;
+        assert s = x"00000000" and n = '0' report "Test case 12 [ADD smallest negative with itself] failed" severity error;
+
+        -- Test case 13 : SUB largest positive number from itself
+        op <= "10";
+        a <= x"7fffffff";
+        b <= x"7fffffff";
+        wait for 10 ns;
+        assert s = x"00000000" and n = '0' report "Test case 13 [SUB largest positive from itself] failed" severity error;
+
+        -- Test case 14 : SUB smallest negative number from itself
+        op <= "10";
+        a <= x"80000000";
+        b <= x"80000000";
+        wait for 10 ns;
+        assert s = x"00000000" and n = '0' report "Test case 14 [SUB smallest negative from itself] failed" severity error;
+
+        -- Test case 15 : A = 0, B = 0
+        op <= "00";
+        a <= x"00000000";
+        b <= x"00000000";
+        wait for 10 ns;
+        assert s = x"00000000" and n = '0' report "Test case 15 [A = 0, B = 0] failed" severity error;
+
         -- if test completed with no errors, print test passed
         report "All test cases passed" severity note;
         wait;
