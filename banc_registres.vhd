@@ -41,7 +41,6 @@ begin
             if we = '1' then
                 banc(to_integer(unsigned(rw))) <= w;
             end if;
-
             a <= banc(to_integer(unsigned(ra)));
             b <= banc(to_integer(unsigned(rb)));
         end if;

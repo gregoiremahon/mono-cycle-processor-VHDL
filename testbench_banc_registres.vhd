@@ -60,66 +60,71 @@ begin
         wait for 5 ns;
     end process;
 
-testcases : process
-begin	
     -- Test Case 1 : Write to register, read back, compare
+    process
+    begin
     we <= '1';
     rw <= "0001";
     w <= x"00000002";
-    wait until rising_edge(clk);
+    wait for 10 ns;
     we <= '0';
     ra <= "0001";
     rb <= "0000";
-    wait until rising_edge(clk);
+    wait for 10 ns;
     assert a = x"00000002" and b = x"00000001"
         report "Test case 1 failed" severity error;
+        wait;
+    end process;
     
     -- Test Case 2 : Write to register, read back, compare
+    process
+    begin
     we <= '1';
     rw <= "1001";
     w <= x"ffffffff";
-    wait until rising_edge(clk);
+    wait for 10 ns;
     we <= '0';
     ra <= "1001";
     rb <= "0000";
-    wait until rising_edge(clk);
+    wait for 10 ns;
     assert a = x"ffffffff" and b = x"00000001"
         report "Test case 2 failed" severity error;
+    wait;
+    end process;
     
     -- Test case 3 : Writing to a register
+    process
+    begin
     WE <= '1';
     RW <= "0000";
     W <= x"12345678";
-    wait until rising_edge(clk);
+    wait for 10 ns;
     WE <= '0';
-    wait until rising_edge(clk);
+    wait for 10 ns;
     assert A = x"00000000" and B = x"00000030" report "Test case 3 failed" severity error;
+    wait;
+    end process;
 
     -- Test case 4 : Reading from a register
+    process
+    begin
     RA <= "1111";
     RB <= "1110";
-    wait until rising_edge(clk);
+    wait for 10 ns;
     assert A = x"00000030" and B = x"12345678" report "Test case 4 failed" severity error;
-
+    wait;
+    end process;
     -- Test case 5 : Writing to another register
+    process
+    begin
     WE <= '1';
     RW <= "0001";
-    W <= x"fedcba98";
-    wait until rising_edge(clk);
+    W <= x"fedcba98";	
+    wait for 10 ns;
     WE <= '0';
-    wait until rising_edge(clk);
+    wait for 10 ns;
     assert A = x"00000030" and B = x"12345678" report "Test case 5 failed" severity error;
-
-    -- Test case 6 : Reading from another register
-    RA <= "1111";
-    RB <= "1110";
-    wait until rising_edge(clk);
-    assert A = x"00000030" and B = x"fedcba98" report "Test case 6 failed" severity error;
-
-    
-    -- Test completed with no errors
-    report "All test cases passed" severity note;
     wait;
-end process;
-end architecture behavior;
+    end process;    
 
+end architecture behavior;
