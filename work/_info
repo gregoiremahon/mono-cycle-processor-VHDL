@@ -1,0 +1,73 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL
+Ealu
+w1677140009
+Z1 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+R0
+Z4 8C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/UAL.vhd
+Z5 FC:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/UAL.vhd
+l0
+L5
+VTT`Dc4W;ZKDZ5J_Df[7BE2
+!s100 R71Dnk`;c;LSMEURE:YM_1
+Z6 OV;C;10.5b;63
+32
+!s110 1677140012
+!i10b 1
+!s108 1677140012.000000
+Z7 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/UAL.vhd|
+!s107 C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/UAL.vhd|
+!i113 1
+Z8 o-work work -2002 -explicit
+Z9 tExplicit 1 CvgOpt 0
+Eual
+Z10 w1677140430
+R1
+R2
+R3
+R0
+R4
+R5
+l0
+L5
+V^mch`SLN<;OF>^59AMQba3
+!s100 [>M3BV6zN<e`3Li10MPf>3
+R6
+32
+Z11 !s110 1677140433
+!i10b 1
+Z12 !s108 1677140433.000000
+R7
+Z13 !s107 C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/UAL.vhd|
+!i113 1
+R8
+R9
+Abehavior
+R1
+R2
+R3
+DEx4 work 3 ual 0 22 ^mch`SLN<;OF>^59AMQba3
+l15
+L14
+VIzd4ZfaiE[`5GzVLo^0bZ0
+!s100 K__lz7HA6C`@b7nK[ahQ42
+R6
+32
+R11
+!i10b 1
+R12
+R7
+R13
+!i113 1
+R8
+R9
