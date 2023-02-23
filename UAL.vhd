@@ -29,7 +29,7 @@ begin
             when "11" =>
                 result := a;
 	    when others =>
-            	-- opération non définie    
+            	-- operation is not defined
             	null;
         end case;
         
@@ -42,4 +42,3 @@ begin
         end if;
     end process;
 end architecture behavior;
-

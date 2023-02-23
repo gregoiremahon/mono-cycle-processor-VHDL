@@ -26,12 +26,53 @@ Z6 OV;C;10.5b;63
 !i10b 1
 !s108 1677140012.000000
 Z7 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/UAL.vhd|
-!s107 C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/UAL.vhd|
+Z8 !s107 C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/UAL.vhd|
 !i113 1
-Z8 o-work work -2002 -explicit
-Z9 tExplicit 1 CvgOpt 0
+Z9 o-work work -2002 -explicit
+Z10 tExplicit 1 CvgOpt 0
+Etestbench_ual
+Z11 w1677144464
+R1
+R2
+R3
+R0
+Z12 8C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/testbench_UAL.vhd
+Z13 FC:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/testbench_UAL.vhd
+l0
+L5
+VITV8M1S;bAin=^WI17e;K0
+!s100 VRPZ83]GZOJU:lZbb[DgG0
+R6
+32
+Z14 !s110 1677144475
+!i10b 1
+Z15 !s108 1677144474.000000
+Z16 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/testbench_UAL.vhd|
+Z17 !s107 C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/testbench_UAL.vhd|
+!i113 1
+R9
+R10
+Abehavior
+R1
+R2
+R3
+Z18 DEx4 work 13 testbench_ual 0 22 ITV8M1S;bAin=^WI17e;K0
+l22
+L8
+VzDOf;S==zB@=ZCinn[Hlm1
+!s100 ;i]6FPTP<c[8k;hHbkOhk3
+R6
+32
+R14
+!i10b 1
+R15
+R16
+R17
+!i113 1
+R9
+R10
 Eual
-Z10 w1677140430
+Z19 w1677142970
 R1
 R2
 R3
@@ -44,14 +85,14 @@ V^mch`SLN<;OF>^59AMQba3
 !s100 [>M3BV6zN<e`3Li10MPf>3
 R6
 32
-Z11 !s110 1677140433
+Z20 !s110 1677144474
 !i10b 1
-Z12 !s108 1677140433.000000
+R15
 R7
-Z13 !s107 C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/UAL.vhd|
-!i113 1
 R8
+!i113 1
 R9
+R10
 Abehavior
 R1
 R2
@@ -63,11 +104,11 @@ VIzd4ZfaiE[`5GzVLo^0bZ0
 !s100 K__lz7HA6C`@b7nK[ahQ42
 R6
 32
-R11
+R20
 !i10b 1
-R12
+R15
 R7
-R13
-!i113 1
 R8
+!i113 1
 R9
+R10

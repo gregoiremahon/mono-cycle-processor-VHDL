@@ -28,6 +28,9 @@ begin
                 result := std_logic_vector(temp);
             when "11" =>
                 result := a;
+	    when others =>
+            	-- op?ration non d?finie    
+            	null;
         end case;
         
         s <= result;
@@ -39,4 +42,3 @@ begin
         end if;
     end process;
 end architecture behavior;
-
