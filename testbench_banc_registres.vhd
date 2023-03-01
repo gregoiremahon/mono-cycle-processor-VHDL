@@ -1,107 +1,76 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
+entity testbench_banc_registres is
+end entity testbench_banc_registres;
 
-entity banc_registres_tb is
-end entity banc_registres_tb;
-
-architecture behavior of banc_registres_tb is
-    -- Inputs
-    signal clk, rst, we : std_logic;
-    signal w, ra, rb, rw : std_logic_vector(31 downto 0);
-
-    -- Outputs
-    signal a, b : std_logic_vector(31 downto 0);
+architecture default of testbench_banc_registres is
+    signal clk, rst: std_logic;
+    signal w: std_logic_vector(31 downto 0) := (others => '0');
+    signal ra, rb, rw: std_logic_vector(3 downto 0) := (others => '0');
+    signal we: std_logic := '0';
+    signal a, b: std_logic_vector(31 downto 0);
 
 begin
+    T0 : entity work.banc_registres
+         port map (
+             clk => clk,
+             rst => rst,
+             w => w,
+             ra => ra,
+             rb => rb,
+             rw => rw,
+             we => we,
+             a => a,
+             b => b
+         );
 
-    -- Instantiate the Unit Under Test (UUT)
-    uut : entity work.banc_registres
-        port map (
-            clk => clk,
-            rst => rst,
-            we => we,
-            w => w,
-            ra => ra(3 downto 0), -- Tronque la taille à 4 bits pour les adresses
-            rb => rb(3 downto 0), -- Tronque la taille à 4 bits pour les adresses
-            rw => rw(3 downto 0), -- Tronque la taille à 4 bits pour les adresses
-            a => a,
-            b => b
-        );
-
-    -- Clock generation
     clk_gen : process
     begin
-        clk <= '0';
-        wait for 10 ns;
         clk <= '1';
-        wait for 10 ns;
+        wait for 2 ns;
+        clk <= '0';
+        wait for 2 ns;
     end process;
 
-    -- Reset generation
-    rst_gen : process
+    test : process
     begin
+        -- Initialize bank with a reset
         rst <= '1';
-        wait for 20 ns;
+        wait for 4 ns;
         rst <= '0';
+
+        -- Read registers @RA = 0 & @RB = 12
+        ra <= X"0";
+        rb <= X"C";
+        -- Wait till values are stabilized
+        wait for 1 ns;
+        -- Check that we read 0 on both registers
+        assert a = X"00000000" report "Error: a is wrong during first read" severity error;
+        assert b = X"00000000" report "Error: b is wrong during first read" severity error;
+
+        -- Write into registers @RW = 0 & @RW = 12
+        w <= X"0000000A";
+        rw <= X"0";
+        we <= '1';
+        -- Wait for rising edge to pass
+        wait for 4 ns;
+        rw <= X"C";
+        -- Wait for rising edge to pass
+        wait for 4 ns;
+        we <= '0';
+
+        -- Check that we have successfully written on registers
+        ra <= X"0";
+        rb <= X"C";
+        -- Wait till values are stabilized
+        wait for 1 ns;
+        -- Check that we read 0xA on both registers
+        assert a = X"0000000A" report "Error: a is wrong during second read" severity error;
+        assert b = X"0000000A" report "Error: b is wrong during second read" severity error;
+
         wait;
     end process;
 
-    -- Stimulus process
-    stim_proc : process
-    begin
-        -- Write to register 0 with value x"00000001"
-        we <= '1';
-        w <= x"00000001";
-        ra <= x"00000000";
-        rb <= x"00000000";
-        rw <= x"00000000";
-        wait for 10 ns;
-
-        -- Write to register 1 with value x"00000002"
-        we <= '1';
-        w <= x"00000002";
-        ra <= x"00000001";
-        rb <= x"00000001";
-        rw <= x"00000001";
-        wait for 10 ns;
-
-        -- Read from register 0 and 1
-        we <= '0';
-        ra <= x"00000000";
-        rb <= x"00000001";
-        rw <= x"00000000";
-        wait for 10 ns;
-
-        -- Assert that the output a is equal to x"00000001"
-        assert a = x"00000001" report "Error: a value is not correct" severity error;
-
-        -- Assert that the output b is equal to x"00000002"
-        assert b = x"00000002" report "Error: b value is not correct" severity error;
-
-        -- Write to register 3 with value x"00000003"
-        we <= '1';
-        w <= x"00000003";
-        ra <= x"00000011";
-        rb <= x"00000011";
-        rw <= x"00000011";
-        wait for 10 ns;
-
-        -- Read from register 3 and 15
-        we <= '0';
-        ra <= x"00000011";
-        rb <= x"00001111";
-        rw <= x"00000000";
-        wait for 10 ns;
-
-    -- Assert that the output a is equal to x"00000003"
-    assert a = x"00000003" report "Error: a value is not correct" severity error;
-
-    -- Assert that the output b is equal to x"00000030"
-    assert b = x"00000030" report "Error: b value is not correct" severity error;
-
-    wait;
-end process;
-end architecture behavior;
+end architecture;
 

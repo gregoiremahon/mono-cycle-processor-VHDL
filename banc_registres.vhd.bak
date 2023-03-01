@@ -1,54 +1,75 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
-entity banc_registres is
-    port (
-        clk, rst: in std_logic;
-        w: in std_logic_vector(31 downto 0); -- writing input
-        ra, rb, rw: in std_logic_vector(3 downto 0); -- adress
-        we: in std_logic; -- writing : '1', else : '0'
-        a, b: out std_logic_vector(31 downto 0) -- outputs, reading a and b values from registers
-    );
-end entity banc_registres;
+entity testbench_banc_registres is
+end entity testbench_banc_registres;
 
-architecture behavior of banc_registres is
-
-    -- init of the registers function [given by UPMC project subject]
-    type table is array (15 downto 0) of std_logic_vector(31 downto 0);
-    function init_banc return table is
-        variable result : table;
-    begin
-        for i in result'range loop
-            result(i) := (others => '0');
-        end loop;
-
-        result(15) := x"00000030";
-
-        return result;
-    end init_banc;
-
-    -- Declaration and initialization of a 16x32 bits register file named Banc
-    -- The register file is declared as a table of std_logic_vectors
-    -- The initialization of the register file is done using the init_banc function, which sets all registers to 0 except for the last one (index 15) which is set to 0x00000030
-    signal Banc : table := init_banc;
-
+architecture default of testbench_banc_registres is
+    signal clk, rst: std_logic;
+    signal w: std_logic_vector(31 downto 0) := (others => '0');
+    signal ra, rb, rw: std_logic_vector(3 downto 0) := (others => '0');
+    signal we: std_logic := '0';
+    signal a, b: std_logic_vector(31 downto 0);
 
 begin
-    process (clk, rst)
+    T0 : entity work.banc_registres
+         port map (
+             clk => clk,
+             rst => rst,
+             w => w,
+             ra => ra,
+             rb => rb,
+             rw => rw,
+             we => we,
+             a => a,
+             b => b
+         );
+
+    clk_gen : process
     begin
-		-- reset the register file using the function below when reset is HIGH
-    if rst = '1' then 
-    	banc <= init_banc; 
-    elsif rising_edge(clk) then
-        if we = '1' then
-        	banc(to_integer(unsigned(rw))) <= w;
-	end if;
-    end if;
+        clk <= '1';
+        wait for 2 ns;
+        clk <= '0';
+        wait for 2 ns;
     end process;
-           
-    a <= banc(to_integer(unsigned(ra)));
-    b <= banc(to_integer(unsigned(rb)));
-    
-    
-end architecture behavior;
+
+    test : process
+    begin
+        -- Initialize bank with a reset
+        rst <= '1';
+        wait for 4 ns;
+        rst <= '0';
+
+        -- Read registers @RA = 0 & @RB = 12
+        ra <= X"0";
+        rb <= X"C";
+        -- Wait till values are stabilized
+        wait for 1 ns;
+        -- Check that we read 0 on both registers
+        assert a = X"00000000" report "Error: a is wrong during first read" severity error;
+        assert b = X"00000000" report "Error: b is wrong during first read" severity error;
+
+        -- Write into registers @RW = 0 & @RW = 12
+        w <= X"0000000A";
+        rw <= X"0";
+        we <= '1';
+        -- Wait for rising edge to pass
+        wait for 4 ns;
+        rw <= X"C";
+        -- Wait for rising edge to pass
+        wait for 4 ns;
+        we <= '0';
+
+        -- Check that we have successfully written on registers
+        ra <= X"0";
+        rb <= X"C";
+        -- Wait till values are stabilized
+        wait for 1 ns;
+        -- Check that we read 0xA on both registers
+        assert a = X"0000000A" report "Error: a is wrong during second read" severity error;
+        assert b = X"0000000A" report "Error: b is wrong during second read" severity error;
+
+        wait;
+    end process;
+
+end architecture;
