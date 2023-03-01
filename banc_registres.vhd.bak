@@ -49,5 +49,6 @@ begin
            
     a <= banc(to_integer(unsigned(ra)));
     b <= banc(to_integer(unsigned(rb)));
-
+    
+    
 end architecture behavior;

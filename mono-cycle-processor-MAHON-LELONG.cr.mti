@@ -1,0 +1,28 @@
+{C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/testbench_banc_registres.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/testbench_banc_registres.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity testbench_register_file
+-- Compiling architecture behavior of testbench_register_file
+
+} {} {}} {C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/UAL.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/UAL.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity ual
+-- Compiling architecture behavior of ual
+
+} {} {}} {C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/testbench_UAL.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/testbench_UAL.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity testbench_ual
+-- Compiling architecture behavior of testbench_ual
+
+} {} {}}
