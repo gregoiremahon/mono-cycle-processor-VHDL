@@ -12,13 +12,16 @@ end entity processingUnit;
 
 architecture behavior of processingUnit is
 
+    -- Constant signal
+    constant write_enable : std_logic := '1'; -- or '0' if needed
+
     -- Components
     component banc_registres is
         port (
             clk, rst: in std_logic;
             w: in std_logic_vector(31 downto 0);
             ra, rb, rw: in std_logic_vector(3 downto 0);
-            we: in std_logic;
+            we: in std_logic; -- Change to constant signal
             a, b: out std_logic_vector(31 downto 0)
         );
     end component banc_registres;
@@ -47,7 +50,7 @@ begin
         ra => rs,
         rb => rt,
         rw => rd,
-        we => op /= "01",
+        we => write_enable, -- Use the constant signal
         a => regA,
         b => regB
     );
@@ -89,3 +92,4 @@ begin
     dataOut <= regOut;
 
 end architecture behavior;
+
