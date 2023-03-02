@@ -1,1 +1,70 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity testbench_Processing_Unit is
+end entity testbench_Processing_Unit;
+
+architecture behavior of testbench_Processing_Unit is
+    -- Component declaration for the DUT
+    component processingUnit is
+        port (
+            clk, rst: in std_logic;
+            instruction: in std_logic_vector(31 downto 0);
+            dataOut: out std_logic_vector(31 downto 0)
+        );
+    end component processingUnit;
+
+    -- Signals
+    signal clk_tb, rst_tb: std_logic := '0';
+    signal instruction_tb: std_logic_vector(31 downto 0) := x"00000000";
+    signal dataOut_tb: std_logic_vector(31 downto 0) := x"00000000";
+
+begin
+    -- Component instantiation
+    DUT : processingUnit port map(
+        clk => clk_tb,
+        rst => rst_tb,
+        instruction => instruction_tb,
+        dataOut => dataOut_tb
+    );
+
+    -- Clock generation
+    clk_tb <= not clk_tb after 5 ns;
+
+stimulus_process : process
+begin
+    -- Reset generation
+    rst_tb <= '1';
+    wait for 10 ns;
+    rst_tb <= '0';
+    wait for 10 ns;
+
+    -- Testcase 1: R(1) = R(15)
+    instruction_tb <= x"EE0B0000"; -- Move register 15 to register 1
+    wait for 50 ns;
+    assert to_integer(unsigned(dataOut_tb)) = 16#0000EEEE# report "Testcase 1 failed: dataOut_tb = " & integer'image(to_integer(unsigned(dataOut_tb))) severity error;
+
+    -- Testcase 2: R(1) = R(1) + R(15)
+    instruction_tb <= x"EE0B0010"; -- Add register 15 to register 1
+    wait for 50 ns;
+    assert to_integer(unsigned(dataOut_tb)) = 16#0001EEEE# report "Testcase 2 failed: dataOut_tb = " & integer'image(to_integer(unsigned(dataOut_tb))) severity error;
+
+    -- Testcase 3: R(2) = R(1) + R(15)
+    instruction_tb <= x"EE0B0210"; -- Add register 15 to register 1 and store result in register 2
+    wait for 50 ns;
+    assert to_integer(unsigned(dataOut_tb)) = 16#0001EEEE# report "Testcase 3 failed: dataOut_tb = " & integer'image(to_integer(unsigned(dataOut_tb))) severity error;
+
+    -- Testcase 4: R(3) = R(1) ? R(15)
+    instruction_tb <= x"CE0B0310"; -- Subtract register 15 from register 1 and store result in register 3
+    wait for 50 ns;
+    assert to_integer(unsigned(dataOut_tb)) = 16#EEEE1111# report "Testcase 4 failed: dataOut_tb = " & integer'image(to_integer(unsigned(dataOut_tb))) severity error;
+
+    -- Testcase 5: R(5) = R(7) ? R(15)
+    instruction_tb <= x"8E0F0510"; -- Subtract register 15 from register 7 and store result in register 5
+    wait for 50 ns;
+    assert to_integer(unsigned(dataOut_tb)) = 16#EEEE2222# report "Testcase 5 failed: dataOut_tb = " & integer'image(to_integer(unsigned(dataOut_tb))) severity error;
+end process;
+end architecture;
+
 

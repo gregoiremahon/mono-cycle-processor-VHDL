@@ -2,91 +2,74 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity processingUnit is
-    port (
-        clk, rst: in std_logic;
-        instruction: in std_logic_vector(31 downto 0);
-        dataOut: out std_logic_vector(31 downto 0)
-    );
-end entity processingUnit;
+entity testbench_Processing_Unit is
+end entity testbench_Processing_Unit;
 
-architecture behavior of processingUnit is
-
-    -- Components
-    component banc_registres is
+architecture behavior of testbench_Processing_Unit is
+    -- Component declaration for the DUT
+    component processingUnit is
         port (
             clk, rst: in std_logic;
-            w: in std_logic_vector(31 downto 0);
-            ra, rb, rw: in std_logic_vector(4 downto 0);
-            we: in std_logic;
-            a, b: out std_logic_vector(31 downto 0)
+            instruction: in std_logic_vector(31 downto 0);
+            dataOut: out std_logic_vector(31 downto 0)
         );
-    end component banc_registres;
+    end component processingUnit;
 
-    component ual is
-        port (
-            op : in std_logic_vector(1 downto 0);
-            a, b : in std_logic_vector(31 downto 0);
-            s : out std_logic_vector(31 downto 0);
-            n : out std_logic
-        );
-    end component ual;
-
-    -- Internal signals
-    signal op : std_logic_vector(1 downto 0);
-    signal rs, rt, rd : std_logic_vector(4 downto 0);
-    signal regA, regB, regOut : std_logic_vector(31 downto 0);
+    -- Signals
+    signal clk_tb, rst_tb: std_logic := '0';
+    signal instruction_tb: std_logic_vector(31 downto 0);
+    signal dataOut_tb: std_logic_vector(31 downto 0);
 
 begin
-
-    -- Banc Registres instantiation
-    BR : banc_registres port map(
-        clk => clk,
-        rst => rst,
-        w => regOut,
-        ra => rs,
-        rb => rt,
-        rw => rd,
-        we => op /= "01",
-        a => regA,
-        b => regB
+    -- Component instantiation
+    DUT : processingUnit port map(
+        clk => clk_tb,
+        rst => rst_tb,
+        instruction => instruction_tb,
+        dataOut => dataOut_tb
     );
 
-    -- UAL instantiation
-    U : ual port map(
-        op => op,
-        a => regA,
-        b => regB,
-        s => regOut,
-        n => open -- not used
-    );
+    -- Clock generation
+    clk_tb <= not clk_tb after 5 ns;
 
-    process(clk)
+    stimulus_process : process
     begin
-        if rising_edge(clk) then
-            if rst = '1' then
-                regA <= (others => '0');
-                regB <= (others => '0');
-                regOut <= (others => '0');
-            else
-                -- Set the op signal to the appropriate value
-                op <= instruction(5 downto 4);
+        -- Reset generation
+        rst_tb <= '1';
+        wait for 10 ns;
+        rst_tb <= '0';
+        wait for 10 ns;
 
-                -- Set the rs and rt signals to the appropriate values
-                rs <= instruction(25 downto 21);
-                rt <= instruction(20 downto 16);
+        -- Testcase 1: R(1) = R(15)
+        instruction_tb <= x"EE0B0000"; -- Move register 15 to register 1
+        wait until rising_edge(clk_tb);
+        assert dataOut_tb = x"0000EEEE" report "Testcase 1 failed" severity error;
+        wait for 50 ns;
 
-                -- Write to the register file if the op signal is not 01
-                if op /= "01" then
-                    rd <= instruction(15 downto 11);
-                    regA <= regOut;
-                end if;
-            end if;
-        end if;
-    end process;
+        -- Testcase 2: R(1) = R(1) + R(15)
+        instruction_tb <= x"EE0B0010"; -- Add register 15 to register 1
+        wait until rising_edge(clk_tb);
+        assert dataOut_tb = x"0001EEEE" report "Testcase 2 failed" severity error;
+        wait for 50 ns;
 
-    -- Output the data from the processing unit
-    dataOut <= regOut;
+        -- Testcase 3: R(2) = R(1) + R(15)
+        instruction_tb <= x"EE0B0210"; -- Add register 15 to register 1 and store result in register 2
+        wait until rising_edge(clk_tb);
+        assert dataOut_tb = x"0001EEEE" report "Testcase 3 failed" severity error;
+        wait for 50 ns;
 
-end architecture behavior;
+        -- Testcase 4: R(3) = R(1) ? R(15)
+        instruction_tb <= x"CE0B0310"; -- Subtract register 15 from register 1 and store result in register 3
+        wait until rising_edge(clk_tb);
+        assert dataOut_tb = x"EEEE1111" report "Testcase 4 failed" severity error;
+        wait for 50 ns;
+
+        -- Testcase 5: R(5) = R(7) ? R(15)
+        instruction_tb <= x"8E0F0510"; -- Subtract register 15 from register 
+
+
+-- End simulation
+wait;
+end process stimulus_process;
+end architecture;
 
