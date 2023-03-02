@@ -23,4 +23,4 @@ The processor can be tested using the provided testbenches, which simulate vario
 
 ## Contributors
 
-This project was created by Grégoire Mahon and Armand Lelong, as part of the Polytech Sorbonne EI2I-3 project. Please feel free to contribute to the project by creating pull requests or reporting issues.
+This project was created by Grégoire Mahon and Armand Lelong [@armagrad], as part of the Polytech Sorbonne EI2I-3 project. Please feel free to contribute to the project by creating pull requests or reporting issues.
