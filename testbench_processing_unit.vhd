@@ -1,70 +1,86 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
-entity testbench_processingUnit is
-end entity testbench_processingUnit;
+entity testbench_processing_unit is
+end testbench_processing_unit;
 
-architecture default of testbench_processingUnit is
-    signal clk, rst: std_logic;
-    signal instruction: std_logic_vector(31 downto 0) := (others => '0');
-    signal dataOut: std_logic_vector(31 downto 0);
+architecture arcTB_Processing_Unit of testbench_processing_unit is
+
+    -- Component declaration for the Unit Under Test (UUT)
+    component processingUnit
+    port (
+        clk, rst: in std_logic;
+        instruction: in std_logic_vector(31 downto 0);
+        dataOut: out std_logic_vector(31 downto 0)
+    );
+    end component;
+
+    --Inputs
+    signal clk : std_logic := '0';
+    signal rst : std_logic := '0';
+    signal instruction : std_logic_vector(31 downto 0) := (others => '0');
+
+    --Outputs
+    signal dataOut : std_logic_vector(31 downto 0);
+
+    -- Clock period definitions
+    constant clk_period : time := 10 ns;
 
 begin
-    DUT : entity work.processingUnit
-        port map (
-            clk => clk,
-            rst => rst,
-            instruction => instruction,
-            dataOut => dataOut
-        );
 
-    clk_gen : process
+    -- Instantiate the Unit Under Test (UUT)
+    uut: processingUnit port map (
+        clk => clk,
+        rst => rst,
+        instruction => instruction,
+        dataOut => dataOut
+    );
+
+    -- Clock process definitions
+    clk_process :process
     begin
-        clk <= '1';
-        wait for 2 ns;
         clk <= '0';
-        wait for 2 ns;
+        wait for clk_period/2;
+        clk <= '1';
+        wait for clk_period/2;
     end process;
 
-    test : process
+    -- Stimulus process
+    stim_proc: process
     begin
-        -- Initialize
-        rst <= '1';
-        wait for 4 ns;
-        rst <= '0';
+        wait for clk_period;
 
-        -- Test R(1) = R(15)
-        instruction <= x"00158020"; -- add R(1), R(1), R(0)
-        wait for 10 ns;
-        assert dataOut = x"00000000" report "Error: R(1) is not equal to R(15)" severity error;
+        -- Testcase 1: R(1) = R(15)
+        instruction <= "00000000000011110000000100000000"; -- addi $1, $15, 0
+        wait for clk_period;
+        assert dataOut = x"00000000"
+        report "Testcase 1 failed" severity error;
 
-        -- Test R(1) = R(1) + R(15)
-        instruction <= x"015F8020"; -- add R(1), R(15), R(1)
-        wait for 10 ns;
-        assert dataOut = x"00000000" report "Error: R(1) is not equal to R(15)" severity error;
+        -- Testcase 2: R(1) = R(1) + R(15)
+        instruction <= "00000011111000010000000100000000"; -- add $1, $1, $15
+        wait for clk_period;
+        assert dataOut = x"00000000"
+        report "Testcase 2 failed" severity error;
 
-        -- Test R(2) = R(1) + R(15)
-        instruction <= x"015F8022"; -- add R(2), R(15), R(1)
-        wait for 10 ns;
-        assert dataOut = x"00000000" report "Error: R(2) is not equal to R(1) + R(15)" severity error;
+        -- Testcase 3: R(2) = R(1) + R(15)
+        instruction <= "00000011111000100000001000000000"; -- add $2, $1, $15
+        wait for clk_period;
+        assert dataOut = x"00000000"
+        report "Testcase 3 failed" severity error;
 
-        -- Test R(3) = R(1) ? R(15)
-        instruction <= x"015F8022"; -- add R(2), R(15), R(1)
-        wait for 10 ns;
-        instruction <= x"011F8023"; -- sub R(3), R(15), R(1)
-        wait for 10 ns;
-        assert dataOut = x"00000000" report "Error: R(3) is not equal to R(15) - R(1)" severity error;
+        -- Testcase 4: R(3) = R(1) ? R(15)
+        instruction <= "00000011111000110000001100000000"; -- sub $3, $1, $15
+        wait for clk_period;
+        assert dataOut = x"00000000"
+        report "Testcase 4 failed" severity error;
 
-        -- Test R(5) = R(7) ? R(15)
-        instruction <= x"01BF8021"; -- addu R(7), R(15), R(31)
-        wait for 10 ns;
-        instruction <= x"015F882A"; -- slt R(5), R(7), R(15)
-        wait for 10 ns;
-        assert dataOut = x"FFFFFFFF" report "Error: R(5) is not equal to R(7) - R(15)" severity error;
+        -- Testcase 5: R(5) = R(7) ? R(15)
+        instruction <= "00000011111001100000101100000000"; -- sub $5, $7, $15
+        wait for clk_period;
+        assert dataOut = x"00000000" report "Test 5 failed" severity error;
 
         wait;
-    end process;
+    end process stim_proc;
 
-end architecture;
+end architecture arcTB_Processing_Unit;
 

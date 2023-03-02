@@ -76,12 +76,12 @@ begin
                 op <= instruction(5 downto 4);
 
                 -- Set the rs and rt signals to the appropriate values
-                rs <= instruction(25 downto 21);
-                rt <= instruction(20 downto 16);
+                rs <= instruction(25 downto 22);
+                rt <= instruction(21 downto 18);
 
                 -- Write to the register file if the op signal is not 01
                 if op /= "01" then
-                    rd <= instruction(15 downto 11);
+                    rd <= instruction(15 downto 12);
                     regA <= regOut;
                 end if;
             end if;
