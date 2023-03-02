@@ -2,44 +2,26 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity Processing_Unit is
+entity processingUnit is
     port (
-        -- General signals
-        clk, rst : in std_logic;
-
-        -- Register bank signals
-        reg_w : in std_logic_vector(31 downto 0);  -- Data to write to register bank
-        reg_ra, reg_rb, reg_rw : in std_logic_vector(3 downto 0);  -- Register addresses for read operations
-        reg_we : in std_logic;  -- Write enable for register bank
-        reg_a, reg_b : out std_logic_vector(31 downto 0);  -- Data output from register bank
-
-        -- UAL signals
-        ual_op : in std_logic_vector(1 downto 0);  -- Operation code for UAL
-        ual_a, ual_b : in std_logic_vector(31 downto 0);  -- Inputs to UAL
-        ual_s : out std_logic_vector(31 downto 0);  -- Result output from UAL
-        ual_n : out std_logic  -- Negative flag output from UAL
+        clk, rst: in std_logic;
+        instruction: in std_logic_vector(31 downto 0);
+        dataOut: out std_logic_vector(31 downto 0)
     );
-end Processing_Unit;
+end entity processingUnit;
 
-architecture behavior of Processing_Unit is
-    -- Internal signals
-    signal reg_w_internal : std_logic_vector(31 downto 0);
-    signal reg_ra_internal, reg_rb_internal, reg_rw_internal : std_logic_vector(3 downto 0);
-    signal reg_we_internal : std_logic;
-    signal reg_a_internal, reg_b_internal : std_logic_vector(31 downto 0);
-    signal ual_s_internal : std_logic_vector(31 downto 0);
-    signal ual_n_internal : std_logic;
+architecture behavior of processingUnit is
 
-    -- Component declarations
+    -- Components
     component banc_registres is
         port (
-            clk, rst : in std_logic;
-            w : in std_logic_vector(31 downto 0);
-            ra, rb, rw : in std_logic_vector(3 downto 0);
-            we : in std_logic;
-            a, b : out std_logic_vector(31 downto 0)
+            clk, rst: in std_logic;
+            w: in std_logic_vector(31 downto 0);
+            ra, rb, rw: in std_logic_vector(3 downto 0);
+            we: in std_logic;
+            a, b: out std_logic_vector(31 downto 0)
         );
-    end component;
+    end component banc_registres;
 
     component ual is
         port (
@@ -48,42 +30,62 @@ architecture behavior of Processing_Unit is
             s : out std_logic_vector(31 downto 0);
             n : out std_logic
         );
-    end component;
+    end component ual;
+
+    -- Internal signals
+    signal op : std_logic_vector(1 downto 0);
+    signal rs, rt, rd : std_logic_vector(3 downto 0);
+    signal regA, regB, regOut : std_logic_vector(31 downto 0);
 
 begin
-    -- Instantiate the register bank component
-    REG_inst : banc_registres
-        port map (
-            clk => clk,
-            rst => rst,
-            w => reg_w_internal,
-            ra => reg_ra_internal,
-            rb => reg_rb_internal,
-            rw => reg_rw_internal,
-            we => reg_we_internal,
-            a => reg_a_internal,
-            b => reg_b_internal
-        );
 
-    -- Instantiate the UAL component
-    UAL_inst : ual
-        port map (
-            op => ual_op,
-            a => ual_a,
-            b => ual_b,
-            s => ual_s_internal,
-            n => ual_n_internal
-        );
+    -- Banc Registres instantiation
+    BR : banc_registres port map(
+        clk => clk,
+        rst => rst,
+        w => regOut,
+        ra => rs,
+        rb => rt,
+        rw => rd,
+        we => op /= "01",
+        a => regA,
+        b => regB
+    );
 
-    -- Assign internal signals to external signals
-    reg_w_internal <= reg_w;
-    reg_ra_internal <= reg_ra;
-    reg_rb_internal <= reg_rb;
-    reg_rw_internal <= reg_rw;
-    reg_we_internal <= reg_we;
-    reg_a <= reg_a_internal;
-    reg_b <= reg_b_internal;
-    ual_s <= ual_s_internal;
-    ual_n <= ual_n_internal;
-end behavior;
+    -- UAL instantiation
+    U : ual port map(
+        op => op,
+        a => regA,
+        b => regB,
+        s => regOut,
+        n => open -- not used
+    );
 
+    process(clk)
+    begin
+        if rising_edge(clk) then
+            if rst = '1' then
+                regA <= (others => '0');
+                regB <= (others => '0');
+                regOut <= (others => '0');
+            else
+                -- Set the op signal to the appropriate value
+                op <= instruction(5 downto 4);
+
+                -- Set the rs and rt signals to the appropriate values
+                rs <= instruction(25 downto 21);
+                rt <= instruction(20 downto 16);
+
+                -- Write to the register file if the op signal is not 01
+                if op /= "01" then
+                    rd <= instruction(15 downto 11);
+                    regA <= regOut;
+                end if;
+            end if;
+        end if;
+    end process;
+
+    -- Output the data from the processing unit
+    dataOut <= regOut;
+
+end architecture behavior;

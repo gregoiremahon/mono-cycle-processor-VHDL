@@ -17,7 +17,36 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity ual
 -- Compiling architecture behavior of ual
 
-} {} {}} {C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/testbench_UAL.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/testbench_UAL.vhd}
+} {} {}} {C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/testbench_processing_unit.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/testbench_processing_unit.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity processing_unit_tb
+-- Compiling architecture sim of processing_unit_tb
+
+} {} {}} {C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/banc_registres.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/banc_registres.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity banc_registres
+-- Compiling architecture behavior of banc_registres
+
+} {} {}} {C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/Processing_Unit.vhd} {0 {vcom -work work -2002 -explicit -stats=none {C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/Processing_Unit.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity Processing_Unit
+-- Compiling architecture behavior of Processing_Unit
+** Error: C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/Processing_Unit.vhd(79): (vcom-1136) Unknown identifier "reg_w".
+** Error: C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/Processing_Unit.vhd(88): VHDL Compiler exiting
+
+} {9.0 11.0} {}} {C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/testbench_UAL.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/testbench_UAL.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
