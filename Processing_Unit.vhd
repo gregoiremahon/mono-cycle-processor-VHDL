@@ -16,4 +16,5 @@ begin
 	E0:Entity work.UAL port map(OP,A,B,W,N);
 	E1:Entity work.banc_registres port map(CLK,RESET,W,RA,RB,RW,WE,A,B);
 	busW<=W;
+
 end architecture;

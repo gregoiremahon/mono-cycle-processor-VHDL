@@ -66,9 +66,9 @@ Vl7QlccQiV6XP58hdm?^C41
 !s100 J>92[32kYQ@;N_LA3Dz]B3
 R6
 32
-Z18 !s110 1678783548
+Z18 !s110 1678783745
 !i10b 1
-Z19 !s108 1678783547.000000
+Z19 !s108 1678783744.000000
 Z20 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/banc_registres.vhd|
 Z21 !s107 C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/banc_registres.vhd|
 !i113 1
@@ -157,7 +157,7 @@ R14
 R9
 R10
 Eprocessing_unit
-Z28 w1678783545
+Z28 w1678783727
 R1
 R2
 R3
@@ -172,7 +172,7 @@ R6
 32
 R18
 !i10b 1
-Z29 !s108 1678783548.000000
+Z29 !s108 1678783745.000000
 R13
 R14
 !i113 1
@@ -187,8 +187,8 @@ R3
 DEx4 work 15 processing_unit 0 22 0S2WN2`8WbCWUa0VihYRh2
 l15
 L12
-VFeN=EDnGJHCQ00U]7G]ef3
-!s100 6^aJ`o_FFcCLF09F?>aGb2
+VZQ0Qcli_nV`fIfh8fbnQH1
+!s100 zSZAe@EASG6:_;R70gCX41
 R6
 32
 R18
@@ -578,7 +578,7 @@ VITV8M1S;bAin=^WI17e;K0
 !s100 VRPZ83]GZOJU:lZbb[DgG0
 R6
 32
-Z58 !s110 1678783547
+Z58 !s110 1678783744
 !i10b 1
 R19
 Z59 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/testbench_UAL.vhd|
