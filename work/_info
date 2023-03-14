@@ -66,9 +66,9 @@ Vl7QlccQiV6XP58hdm?^C41
 !s100 J>92[32kYQ@;N_LA3Dz]B3
 R6
 32
-Z18 !s110 1678787413
+Z18 !s110 1678792121
 !i10b 1
-Z19 !s108 1678787413.000000
+Z19 !s108 1678792121.000000
 Z20 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/banc_registres.vhd|
 Z21 !s107 C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/banc_registres.vhd|
 !i113 1
@@ -361,8 +361,50 @@ R27
 !i113 1
 R9
 R10
+Etb_alu_and_registers
+Z43 w1678792117
+R1
+R2
+R3
+R0
+R32
+R33
+l0
+L5
+V6g@Fo:NXF]ff9VIE6IDi73
+!s100 `HebQ^ZQ1fL]NEd95gR1j2
+R6
+32
+R18
+!i10b 1
+R19
+R36
+R37
+!i113 1
+R9
+R10
+Aarch_tb_alu_and_registers
+R30
+R1
+R2
+R3
+DEx4 work 20 tb_alu_and_registers 0 22 6g@Fo:NXF]ff9VIE6IDi73
+l14
+L8
+V_CD;AFJ@BleTED[5;C=B>3
+!s100 zKIIAVNgAV57LPT0ZFc5V0
+R6
+32
+R18
+!i10b 1
+R19
+R36
+R37
+!i113 1
+R9
+R10
 Etestbench_alu_and_registers
-Z43 w1678787406
+Z44 w1678787406
 R1
 R2
 R3
@@ -375,9 +417,9 @@ Vob7@6AdX6?=Qg7mG2]7JU1
 !s100 2V3K;z@@FXUaz[TBV^G;R3
 R6
 32
-R18
+Z45 !s110 1678787413
 !i10b 1
-R19
+Z46 !s108 1678787413.000000
 R36
 R37
 !i113 1
@@ -388,16 +430,16 @@ R30
 R1
 R2
 R3
-Z44 DEx4 work 27 testbench_alu_and_registers 0 22 ob7@6AdX6?=Qg7mG2]7JU1
+DEx4 work 27 testbench_alu_and_registers 0 22 ob7@6AdX6?=Qg7mG2]7JU1
 l15
 L8
-Z45 Vn0CSFB?JcWng_i^<1W>nZ0
-Z46 !s100 F16`?Y6Q9j=L:2d2OL?Tn2
+Vn0CSFB?JcWng_i^<1W>nZ0
+!s100 F16`?Y6Q9j=L:2d2OL?Tn2
 R6
 32
-R18
+R45
 !i10b 1
-R19
+R46
 R36
 R37
 !i113 1
@@ -642,9 +684,9 @@ VITV8M1S;bAin=^WI17e;K0
 !s100 VRPZ83]GZOJU:lZbb[DgG0
 R6
 32
-Z62 !s110 1678787412
+Z62 !s110 1678792120
 !i10b 1
-Z63 !s108 1678787412.000000
+Z63 !s108 1678792120.000000
 Z64 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/testbench_UAL.vhd|
 Z65 !s107 C:/Users/gregm/Documents/EI2I 3/S5/VHDL/PROJET_PROCESSEUR_MAHON_LELONG/mono-cycle-processor-VHDL/testbench_UAL.vhd|
 !i113 1
@@ -661,7 +703,7 @@ VdSld]?<^YLEf:OL<E^JWE0
 !s100 MnlT7zB<@[YMzNoM9`?IQ1
 R6
 32
-R62
+R18
 !i10b 1
 R63
 R64
