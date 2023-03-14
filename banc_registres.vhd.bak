@@ -1,75 +1,70 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-entity testbench_banc_registres is
-end entity testbench_banc_registres;
+entity processingUnit is
+    port (
+        clk, rst: in std_logic;
+        instruction: in std_logic_vector(31 downto 0);
+        dataOut: out std_logic_vector(31 downto 0)
+    );
+end entity processingUnit;
 
-architecture default of testbench_banc_registres is
-    signal clk, rst: std_logic;
-    signal w: std_logic_vector(31 downto 0) := (others => '0');
-    signal ra, rb, rw: std_logic_vector(3 downto 0) := (others => '0');
-    signal we: std_logic := '0';
-    signal a, b: std_logic_vector(31 downto 0);
+architecture behavior of processingUnit is
+
+-- Input signals for the Register Bank
+signal regWrite : std_logic_vector(3 downto 0);
+signal regAddrA : std_logic_vector(3 downto 0);
+signal regAddrB : std_logic_vector(3 downto 0);
+signal regDataIn : std_logic_vector(31 downto 0);
+signal regDataA : std_logic_vector(31 downto 0);
+signal regDataB : std_logic_vector(31 downto 0);
+
+-- Output signals for the ALU
+signal aluOp : std_logic_vector(1 downto 0);
+signal aluDataA : std_logic_vector(31 downto 0);
+signal aluDataB : std_logic_vector(31 downto 0);
+signal aluDataOut : std_logic_vector(31 downto 0);
+signal aluNegative : std_logic;
+
 
 begin
-    T0 : entity work.banc_registres
-         port map (
-             clk => clk,
-             rst => rst,
-             w => w,
-             ra => ra,
-             rb => rb,
-             rw => rw,
-             we => we,
-             a => a,
-             b => b
-         );
 
-    clk_gen : process
-    begin
-        clk <= '1';
-        wait for 2 ns;
-        clk <= '0';
-        wait for 2 ns;
-    end process;
+-- Instantiate the Register Bank and ALU
+registerBank_inst : entity work.banc_registres
+    port map (
+        clk => clk,
+        rst => rst,
+        w => regDataIn,
+        ra => regAddrA,
+        rb => regAddrB,
+        rw => regWrite,
+        we => regWrite /= "0000", -- correction
+        a => regDataA,
+        b => regDataB
+    );
 
-    test : process
-    begin
-        -- Initialize bank with a reset
-        rst <= '1';
-        wait for 4 ns;
-        rst <= '0';
+alu_inst : entity work.UAL
+    port map (
+        op => aluOp,
+        a => aluDataA,
+        b => aluDataB,
+        s => aluDataOut,
+        n => aluNegative
+    );
 
-        -- Read registers @RA = 0 & @RB = 12
-        ra <= X"0";
-        rb <= X"C";
-        -- Wait till values are stabilized
-        wait for 1 ns;
-        -- Check that we read 0 on both registers
-        assert a = X"00000000" report "Error: a is wrong during first read" severity error;
-        assert b = X"00000000" report "Error: b is wrong during first read" severity error;
+-- Control signals for the Register Bank
+regWrite <= instruction(15 downto 12);
+regAddrA <= instruction(11 downto 8);
+regAddrB <= instruction(7 downto 4);
+regDataIn <= instruction(3 downto 0);
 
-        -- Write into registers @RW = 0 & @RW = 12
-        w <= X"0000000A";
-        rw <= X"0";
-        we <= '1';
-        -- Wait for rising edge to pass
-        wait for 4 ns;
-        rw <= X"C";
-        -- Wait for rising edge to pass
-        wait for 4 ns;
-        we <= '0';
+-- Control signals for the ALU
+aluOp <= instruction(27 downto 26);
+aluDataA <= regDataA;
+aluDataB <= regDataB;
 
-        -- Check that we have successfully written on registers
-        ra <= X"0";
-        rb <= X"C";
-        -- Wait till values are stabilized
-        wait for 1 ns;
-        -- Check that we read 0xA on both registers
-        assert a = X"0000000A" report "Error: a is wrong during second read" severity error;
-        assert b = X"0000000A" report "Error: b is wrong during second read" severity error;
+-- Control signal for Data Out
+dataOut <= aluDataOut;
 
-        wait;
-    end process;
-
-end architecture;
+end architecture behavior;
