@@ -1,0 +1,5 @@
+*.vhd.bak
+*.bak
+*.qpg
+*.qtl
+*_info
