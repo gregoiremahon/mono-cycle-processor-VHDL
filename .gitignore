@@ -3,3 +3,5 @@
 *.qpg
 *.qtl
 *_info
+*.qdb
+*_vmake
