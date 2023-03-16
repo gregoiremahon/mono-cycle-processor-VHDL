@@ -1,62 +1,59 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use ieee.std_logic_textio.all;
+use std.textio.all;
 
-entity testbench_multiplexeur is
+entity multiplexeur_tb is
 end entity;
 
-architecture arch_testbench_multiplexeur of testbench_multiplexeur is
-    -- constant values
-    constant N: positive := 8;
+architecture sim of multiplexeur_tb is
+    constant N: positive := 32;
+    signal A, B, S: std_logic_vector(N-1 downto 0);
+    signal COM: std_logic;
     
-    -- signals
-    signal A, B : std_logic_vector(N-1 downto 0);
-    signal COM : std_logic;
-    signal S : std_logic_vector(N-1 downto 0);
+    component multiplexeur is
+        generic(N: positive := 32);
+        port(
+            A, B: in std_logic_vector(N-1 downto 0);
+            COM: in std_logic;
+            S: out std_logic_vector(N-1 downto 0));
+    end component;
 begin
-    -- instantiate the DUT
-    DUT: entity work.multiplexeur
-    generic map (
-        N => N
-    )
-    port map (
-        A => A,
-        B => B,
-        COM => COM,
-        S => S
-    );
-
-    -- test case 1: select input A
-    tc1: process
+    DUT: multiplexeur generic map(N => N) port map(A => A, B => B, COM => COM, S => S);
+    
+    stimulus: process
     begin
-        -- set input values
-        A <= X"01";
-        B <= X"FF";
+        -- Test case 1
+        A <= x"00000000";
+        B <= x"FFFFFFFF";
         COM <= '0';
-        wait for 10 ns;
+        wait for 100 ns;
+        assert (S = A) report "Test Case 1 failed" severity error;
 
-        -- check output value
-        assert S = X"01" report "Testcase 1 failed" severity error;
-
-        -- wait before starting next testcase
-        wait for 10 ns;
-    end process;
-
-    -- test case 2: select input B
-    tc2: process
-    begin
-        -- set input values
-        A <= X"01";
-        B <= X"FF";
+        -- Test case 2
+        A <= x"00000000";
+        B <= x"FFFFFFFF";
         COM <= '1';
-        wait for 10 ns;
+        wait for 100 ns;
+        assert (S = B) report "Test Case 2 failed" severity error;
 
-        -- check output value
-        assert S = X"FF" report "Testcase 2 failed" severity error;
+        -- Test case 3
+        A <= x"12345678";
+        B <= x"9ABCDEF0";
+        COM <= '0';
+        wait for 100 ns;
+        assert (S = A) report "Test Case 3 failed" severity error;
 
-        -- wait before starting next testcase
-        wait for 10 ns;
+        -- Test case 4
+        A <= x"12345678";
+        B <= x"9ABCDEF0";
+        COM <= '1';
+        wait for 100 ns;
+        assert (S = B) report "Test Case 4 failed" severity error;
+
+        assert false report "End of testbench" severity note;
+
     end process;
-
-end architecture;
-
+    
+end architecture sim;
