@@ -70,9 +70,6 @@ begin
 
         assert DataOut = tmp report "Test Case 3 failed" severity error;
 
-
-
-
         -- Information note
         assert false report "End of testbench" severity note;
 
