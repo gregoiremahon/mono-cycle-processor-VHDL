@@ -48,29 +48,118 @@ begin
     process (instr_courante)
     begin
         case instr_courante is
+                -- Still need to put correct values
             when MOV =>
-
+                nPCsel <= '0';
+                PSR <= '0';
+                PSR_we <= '0';
+                RA <= '1';
+                RB <= '1';
+                RW <= '0';
+                Reg_we <= '1';
+                RegSel <= '0';
+                OP <= "00";
+                UALSrc <= '1';
+                WrSrc <= '0';
+                Data_we <= '0';            
 
             when ADDi =>
-
+                nPCsel <= '0';
+                PSR <= '0';
+                PSR_we <= '0';
+                RA <= '1';
+                RB <= '1';
+                RW <= '0';
+                Reg_we <= '1';
+                RegSel <= '0';
+                OP <= "00";
+                UALSrc <= '1';
+                WrSrc <= '0';
+                Data_we <= '0';
 
             when ADDr =>
-
+                nPCsel <= '0';
+                PSR <= '0';
+                PSR_we <= '0';
+                RA <= '1';
+                RB <= '1';
+                RW <= '0';
+                Reg_we <= '1';
+                RegSel <= '0';
+                OP <= "00";
+                UALSrc <= '1';
+                WrSrc <= '0';
+                Data_we <= '0';
 
             when CMP =>
-
+                nPCsel <= '0';
+                PSR <= '0';
+                PSR_we <= '0';
+                RA <= '1';
+                RB <= '1';
+                RW <= '0';
+                Reg_we <= '1';
+                RegSel <= '0';
+                OP <= "00";
+                UALSrc <= '1';
+                WrSrc <= '0';
+                Data_we <= '0';
 
             when LDR =>
-
+                nPCsel <= '0';
+                PSR <= '0';
+                PSR_we <= '0';
+                RA <= '1';
+                RB <= '1';
+                RW <= '0';
+                Reg_we <= '1';
+                RegSel <= '0';
+                OP <= "00";
+                UALSrc <= '1';
+                WrSrc <= '0';
+                Data_we <= '0';
 
             when STR =>
-
+                nPCsel <= '0';
+                PSR <= '0';
+                PSR_we <= '0';
+                RA <= '1';
+                RB <= '1';
+                RW <= '0';
+                Reg_we <= '1';
+                RegSel <= '0';
+                OP <= "00";
+                UALSrc <= '1';
+                WrSrc <= '0';
+                Data_we <= '0';
 
             when BAL =>
-
+                nPCsel <= '0';
+                PSR <= '0';
+                PSR_we <= '0';
+                RA <= '1';
+                RB <= '1';
+                RW <= '0';
+                Reg_we <= '1';
+                RegSel <= '0';
+                OP <= "00";
+                UALSrc <= '1';
+                WrSrc <= '0';
+                Data_we <= '0';
 
             when BLT =>
-
+                nPCsel <= '0';
+                PSR <= '0';
+                PSR_we <= '0';
+                RA <= '1';
+                RB <= '1';
+                RW <= '0';
+                Reg_we <= '1';
+                RegSel <= '0';
+                OP <= "00";
+                UALSrc <= '1';
+                WrSrc <= '0';
+                Data_we <= '0';
         end case;
     end process
 end architecture behavior;
