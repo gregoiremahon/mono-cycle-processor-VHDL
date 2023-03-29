@@ -13,8 +13,8 @@ architecture arch_Processing_Unit of Processing_Unit is
 	signal A,B,W : std_logic_vector(31 downto 0);
 	signal N : std_logic;
 begin
-	E0:Entity work.UAL port map(OP,A,B,W,N);
-	E1:Entity work.banc_registres port map(CLK,RESET,W,RA,RB,RW,WE,A,B);
-	busW<=W;
+	E0:Entity work.UAL port map(OP, A, B, W, N);
+	E1:Entity work.banc_registres port map(CLK, RESET, W, RA, RB, RW, WE, A, B);
+	busW <= W;
 
 end architecture;
