@@ -16,7 +16,49 @@ architecture arch_instruction_unit of instruction_unit is
     signal sign_extended_offset: std_logic_vector(31 downto 0);
 
     type instruction_memory_array is array (63 downto 0) of std_logic_vector(31 downto 0);
-    signal instruction_memory: instruction_memory_array;
+
+    function init_instruction_memory return instruction_memory_array is
+        variable result : instruction_memory_array;
+    begin
+        for i in 62 downto 9 loop
+           result(i) := (others => '0');
+        end loop;
+
+        -- Memory signal declaration (memory array) init with func init_memory
+        
+        -- Initializing memory to test the final processor
+        -- R1 <= 0x20;
+        result(0) := "11100011101000000001000000010100";
+
+        -- R2 <= 0x0;
+        result(1) := "11100011101000000010000000000000";
+
+        -- R0 <= DATA_MEM[R1];
+        result(2) := "11100110000100010000000000000000";
+
+        -- R2 <= R2 + R0;
+        result(3) := "11100000100000100010000000000000";
+
+        -- R1 <= R1 + 1;
+        result(4) := "11100000100000010001000000000001";
+
+        -- ? R1 = 0x2A;
+        result(5) := "11100011010100010000000000101010";
+
+        -- Branchement à _loop (0x02) si R1 inferieur a 0x2A;
+        result(6) := "10111010000000000000000000000010";
+
+        -- DATA_MEM[R1] <= R2;
+        result(7) := "11100110000000010010000000000000";
+
+        -- Branchement à _main (0x0);
+        result(8) := "11101010000000000000000000000000";
+
+
+        return result;
+    end init_instruction_memory;
+
+    signal instruction_memory: instruction_memory_array:=init_instruction_memory;
 
 begin
 
