@@ -32,9 +32,15 @@ architecture behavior of data_memory is
         for i in result'range loop
             result(i) := (others => '0');
         end loop;
+
+        -- Initializing memory to test the final processor
         -- R1 <= 0x20;
         result(1) := "11100011101000000001000000010100";
+        
+        -- R2 <= 0x0;
+        result(2) := "11100011101000000010000000000000";
 
+        
         return result;
     end init_memory;
 
