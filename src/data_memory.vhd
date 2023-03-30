@@ -26,8 +26,20 @@ architecture behavior of data_memory is
     -- Memory array type definition (64 words of 32 bits)
     type memory_array is array (63 downto 0) of std_logic_vector(31 downto 0);
 
-    -- Memory signal declaration (memory array)
-    signal memory: memory_array;
+    function init_memory return memory_array is
+        variable result : memory_array;
+    begin
+        for i in result'range loop
+            result(i) := (others => '0');
+        end loop;
+        -- R1 <= 0x20;
+        result(1) := "11100011101000000001000000010100";
+
+        return result;
+    end init_memory;
+
+    -- Memory signal declaration (memory array) init with func init_memory
+    signal memory: memory_array:= init_memory;
 
 begin
     -- Write process
