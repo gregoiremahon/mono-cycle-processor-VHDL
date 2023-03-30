@@ -4,13 +4,20 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 Entity Instruction_Decoder is
-generic(N : positive :=32);
+generic(N : positive :=32;
+        J : positive :=24;
+        I : positive :=8
+
+       );
 port(	Instruction, PSR : in std_logic_vector(N-1 downto 0);
 	--Commande:
 	nPCsel,RegWr,UALSrc,PSREn,MemWr,WrSrc,RegSel : out std_logic;
 	OP : out std_logic_vector(1 downto 0);
 	--Commande Registre:
-	Rn,Rd,Rm : out std_logic_vector(3 downto 0));	
+	Rn,Rd,Rm : out std_logic_vector(3 downto 0);
+    Imm : out std_logic_vector(I-1 downto 0);
+    Offset : out std_logic_vector(J-1 downto 0)
+    );	
 end entity;
 
 Architecture arch_Instruction_Decoder of Instruction_Decoder is
@@ -44,7 +51,7 @@ begin
     process (instr_courante)
     begin
         case instr_courante is
-                -- Still need to put correct values
+            
             when MOV =>
                 nPCsel <='1';
                 --PSR <= '0';
@@ -55,7 +62,8 @@ begin
                 UALSrc <= '1';
                 WrSrc <= '0';
                 MemWr <= '0';
-
+                Rn <= instruction(15 downto 12);
+                Imm <= instruction(7 downto 0);
             when ADDi =>
                 nPCsel <= '0';
                 --PSR <= '0';
@@ -66,6 +74,9 @@ begin
                 UALSrc <= '1';
                 WrSrc <= '0';
                 MemWr <= '0';
+                Rn <= instruction(19 downto 16);
+                Rd <= instruction(15 downto 12);
+                Imm <= instruction(7 downto 0);
 
             when ADDr =>
                 nPCsel <= '0';
@@ -77,7 +88,9 @@ begin
                 UALSrc <= '0';
                 WrSrc <= '0';
                 MemWr <= '0';
-
+                Rn <= instruction(19 downto 16);
+                Rd <= instruction(15 downto 12);
+                Rm <= instruction(3 downto 0);
             when CMP =>
                 nPCsel <= '0';
                 --PSR <= '1';
@@ -88,7 +101,8 @@ begin
                 UALSrc <= '1';
                 WrSrc <= '0';
                 MemWr <= '0';
-
+                Rn <= instruction(19 downto 16);
+                Imm <= instruction(7 downto 0);
             when LDR =>
                 nPCsel <= '1';
                 --PSR <= '0';
@@ -99,7 +113,9 @@ begin
                 UALSrc <= '0';
                 WrSrc <= '1';
                 MemWr <= '0';
-
+                Rn <= instruction(19 downto 16);
+                Rd <= instruction(15 downto 12);
+                Offset <= instruction(11 downto 0);
             when STR =>
                 nPCsel <= '1';
                 --PSR <= '0';
@@ -110,7 +126,9 @@ begin
                 UALSrc <= '0';
                 WrSrc <= '1';
                 MemWr <= '1';
-
+                Rn <= instruction(19 downto 16);
+                Rd <= instruction(15 downto 12);
+                Offset <= instruction(11 downto 0);
             when BAL =>
                 nPCsel <= '1';
                 --PSR <= '0';
@@ -121,7 +139,7 @@ begin
                 UALSrc <= '0';
                 WrSrc <= '0';
                 MemWr <= '0';
-
+                Offset <= instruction(23 downto 0);
             when BLT =>
                 nPCsel <= PSR(0); -- First PSR bit
                 --PSR <= '0';
@@ -132,6 +150,7 @@ begin
                 UALSrc <= '0';
                 WrSrc <= '0';
                 MemWr <= '0';
+                Offset <= instruction(23 downto 0);
         end case;
     end process;
 end architecture;
