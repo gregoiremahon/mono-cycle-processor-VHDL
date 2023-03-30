@@ -36,13 +36,13 @@ begin
             when "111000110101" => instr_courante <= CMP;
             when "111001100001" => instr_courante <= LDR;
             when "111001100000" => instr_courante <= STR;
-            when others => instr_courante <= MOV;
+            when others => null;
         end case;
         -- BAL and BLT instructions are only on 7 bits
         case instruction(31 downto 24) is
             when "11101010" => instr_courante <= BAL;
             when "10111010" => instr_courante <= BLT;
-            when others => instr_courante <= MOV;
+            when others => null;
             
         end case;
     end process;
@@ -115,7 +115,7 @@ begin
                 MemWr <= '0';
                 Rn <= instruction(19 downto 16);
                 Rd <= instruction(15 downto 12);
-                Offset <= instruction(11 downto 0);
+                Imm <= instruction(7 downto 0);
             when STR =>
                 nPCsel <= '1';
                 --PSR <= '0';
@@ -128,7 +128,7 @@ begin
                 MemWr <= '1';
                 Rn <= instruction(19 downto 16);
                 Rd <= instruction(15 downto 12);
-                Offset <= instruction(11 downto 0);
+                Imm <= instruction(7 downto 0);
             when BAL =>
                 nPCsel <= '1';
                 --PSR <= '0';
