@@ -51,7 +51,6 @@ begin
     process (instr_courante)
     begin
         case instr_courante is
-            
             when MOV =>
                 nPCsel <='0';
                 --PSR <= '0';
