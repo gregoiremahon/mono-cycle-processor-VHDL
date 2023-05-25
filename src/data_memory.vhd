@@ -1,17 +1,30 @@
+-- __  __                                   _                                                     
+--|  \/  |                                 | |                                                    
+--| \  / | ___  _ __   ___   ___ _   _  ___| | ___   _ __  _ __ ___   ___ ___  ___ ___  ___  _ __ 
+--| |\/| |/ _ \| '_ \ / _ \ / __| | | |/ __| |/ _ \ | '_ \| '__/ _ \ / __/ _ \/ __/ __|/ _ \| '__|
+--| |  | | (_) | | | | (_) | (__| |_| | (__| |  __/ | |_) | | | (_) | (_|  __/\__ \__ \ (_) | |   
+--|_|  |_|\___/|_| |_|\___/ \___|\__, |\___|_|\___| | .__/|_|  \___/ \___\___||___/___/\___/|_|   
+--                                __/ |             | |                                           
+--         
+
+-- *******************************************************************************
+-- Entity Name: data_memory
+-- Description: This entity represents a data memory module. 
+-- It can store and load 64 words of 32 bits.
+-- It takes a 32-bit input bit vector (DataIn) for writing, a 6-bit address input bit vector (Addr) for both reading and writing,
+-- a clock signal (CLK), and a write enable signal (WrEn).
+-- Depending on the value of WrEn, it performs a write operation to the memory.
+-- If WrEn = '1', then the value of DataIn is written to the memory at the address specified by Addr.
+-- The value of the memory at the address specified by Addr is always output on DataOut.
+-- Authors: MAHON and LELONG
+-- *******************************************************************************
+-- Gregoire Mahon & Armand Lelong 16/03/2023
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
--- gregoiremahon & Armand Lelong 16/03/2023
 
--- Data Memory Entity
--- This entity represents a memory module that can store and load 64 words of 32 bits.
--- It has the following inputs and outputs:
--- CLK: Clock input
--- DataIn: 32-bit data input for writing
--- DataOut: 32-bit data output for reading
--- Addr: 6-bit address input for both reading and writing
--- WrEn: Write Enable signal (1 bit)
 entity data_memory is
     port (
         CLK: in std_logic;

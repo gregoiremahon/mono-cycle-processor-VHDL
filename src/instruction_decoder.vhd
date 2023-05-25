@@ -1,12 +1,35 @@
+-- __  __                                   _                                                     
+--|  \/  |                                 | |                                                    
+--| \  / | ___  _ __   ___   ___ _   _  ___| | ___   _ __  _ __ ___   ___ ___  ___ ___  ___  _ __ 
+--| |\/| |/ _ \| '_ \ / _ \ / __| | | |/ __| |/ _ \ | '_ \| '__/ _ \ / __/ _ \/ __/ __|/ _ \| '__|
+--| |  | | (_) | | | | (_) | (__| |_| | (__| |  __/ | |_) | | | (_) | (_|  __/\__ \__ \ (_) | |   
+--|_|  |_|\___/|_| |_|\___/ \___|\__, |\___|_|\___| | .__/|_|  \___/ \___\___||___/___/\___/|_|   
+--                                __/ |             | |                                           
+--         
+
+-- *******************************************************************************
+-- Entity Name: Instruction_Decoder
+-- Description: This entity represents an instruction decoder.
+-- It takes a 32-bit instruction input bit vector (Instruction) and a 32-bit Processor State Register input (PSR).
+-- The instruction decoder is designed to handle a specific set of instructions including MOV, ADDi, ADDr, CMP, LDR, STR, BAL, and BLT.
+-- Each instruction is associated with a specific set of control signals that are generated when the instruction is decoded.
+-- The outputs of the decoder are control signals including nPCsel, RegWr, UALSrc, PSREn, MemWr, WrSrc, RegSel, and OP.
+-- It also outputs 4-bit address output bit vectors (Rn, Rd, Rm), an 8-bit immediate output bit vector (Imm), and a 24-bit offset output bit vector (Offset).
+-- The instruction decoder uses a behavioral architecture, which means it is designed to describe the behavior of the decoder rather than its physical structure.
+-- It uses two processes to accomplish this. The first process determines the current instruction based on the incoming instruction.
+-- The second process generates the appropriate control signals based on the current instruction.
+-- Authors: Mahon and Lelong
+-- *******************************************************************************
+
 
 Library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 Entity Instruction_Decoder is
-generic(N : positive :=32;
-        J : positive :=24;
-        I : positive :=8
+generic(N : positive := 32;
+        J : positive := 24;
+        I : positive := 8
 
        );
 port(	Instruction, PSR : in std_logic_vector(N-1 downto 0);

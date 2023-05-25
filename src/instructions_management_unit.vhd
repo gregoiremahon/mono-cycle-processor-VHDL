@@ -1,3 +1,23 @@
+-- __  __                                   _                                                     
+--|  \/  |                                 | |                                                    
+--| \  / | ___  _ __   ___   ___ _   _  ___| | ___   _ __  _ __ ___   ___ ___  ___ ___  ___  _ __ 
+--| |\/| |/ _ \| '_ \ / _ \ / __| | | |/ __| |/ _ \ | '_ \| '__/ _ \ / __/ _ \/ __/ __|/ _ \| '__|
+--| |  | | (_) | | | | (_) | (__| |_| | (__| |  __/ | |_) | | | (_) | (_|  __/\__ \__ \ (_) | |   
+--|_|  |_|\___/|_| |_|\___/ \___|\__, |\___|_|\___| | .__/|_|  \___/ \___\___||___/___/\___/|_|   
+--                                __/ |             | |                                           
+--         
+
+-- *******************************************************************************
+-- Entity Name: instruction_unit
+-- Description: This entity represents the instruction management unit of the mono-cycle processor.
+-- It has a 32-bit instruction memory that can store 64 words, a 32-bit register (PC register),
+-- a sign extension unit from 24 to 32 bits, and a unit to update the program counter PC according to the control signal nPCsel.
+-- If nPCsel = 0 then PC = PC + 1
+-- If nPCsel = 1 then PC = PC + 1 + SignExt(offset)
+-- The instruction memory is initialized to test the final processor with specific instructions.
+-- Authors: MAHON and LELONG
+-- *******************************************************************************
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

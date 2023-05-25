@@ -1,3 +1,26 @@
+-- __  __                                   _                                                     
+--|  \/  |                                 | |                                                    
+--| \  / | ___  _ __   ___   ___ _   _  ___| | ___   _ __  _ __ ___   ___ ___  ___ ___  ___  _ __ 
+--| |\/| |/ _ \| '_ \ / _ \ / __| | | |/ __| |/ _ \ | '_ \| '__/ _ \ / __/ _ \/ __/ __|/ _ \| '__|
+--| |  | | (_) | | | | (_) | (__| |_| | (__| |  __/ | |_) | | | (_) | (_|  __/\__ \__ \ (_) | |   
+--|_|  |_|\___/|_| |_|\___/ \___|\__, |\___|_|\___| | .__/|_|  \___/ \___\___||___/___/\___/|_|   
+--                                __/ |             | |                                           
+--         
+
+-- *******************************************************************************
+-- Entity Name: banc_registres
+-- Description: This entity represents a register bank. 
+-- It takes a 32-bit input bit vector (w) for writing, 
+-- three 4-bit address input bit vectors (ra, rb, rw), 
+-- a clock signal (clk), a reset signal (rst), and a write enable signal (we).
+-- Depending on the value of we, it performs a write operation to the register bank.
+-- If we = '1', then the value of w is written to the register at the address specified by rw.
+-- The values of the registers at the addresses specified by ra and rb are always output on a and b, respectively.
+-- If rst = '1', then the register bank is reset to its initial state, 
+-- with all registers set to 0 except for the last one (index 15) which is set to 0x00000030.
+-- Authors: MAHON and LELONG
+-- *******************************************************************************
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

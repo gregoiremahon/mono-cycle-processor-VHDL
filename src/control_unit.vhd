@@ -1,3 +1,24 @@
+-- __  __                                   _                                                     
+--|  \/  |                                 | |                                                    
+--| \  / | ___  _ __   ___   ___ _   _  ___| | ___   _ __  _ __ ___   ___ ___  ___ ___  ___  _ __ 
+--| |\/| |/ _ \| '_ \ / _ \ / __| | | |/ __| |/ _ \ | '_ \| '__/ _ \ / __/ _ \/ __/ __|/ _ \| '__|
+--| |  | | (_) | | | | (_) | (__| |_| | (__| |  __/ | |_) | | | (_) | (_|  __/\__ \__ \ (_) | |   
+--|_|  |_|\___/|_| |_|\___/ \___|\__, |\___|_|\___| | .__/|_|  \___/ \___\___||___/___/\___/|_|   
+--                                __/ |             | |                                           
+--         
+
+-- *******************************************************************************
+-- Entity Name: control_unit
+-- Description: This entity represents the control unit of the mono-cycle processor.
+-- It manages the Processor State Register (PSR), which holds the current state of the processor.
+-- The control unit takes a 32-bit input (DATAIN), a clock signal (CLK), a reset signal (RST),
+-- and a write enable signal (WE).
+-- At each rising edge of the clock, if the write enable signal is high, the contents of the PSR
+-- are updated with the value of DATAIN. When the reset signal is active (high, or '1'), the PSR
+-- is reset to 0. The current state of the PSR is outputted on DATAOUT.
+-- Authors: MAHON and LELONG
+-- *******************************************************************************
+
 library ieee;
 use ieee.std_logic_1164.all;
 

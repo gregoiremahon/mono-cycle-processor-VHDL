@@ -1,3 +1,27 @@
+-- __  __                                   _                                                     
+--|  \/  |                                 | |                                                    
+--| \  / | ___  _ __   ___   ___ _   _  ___| | ___   _ __  _ __ ___   ___ ___  ___ ___  ___  _ __ 
+--| |\/| |/ _ \| '_ \ / _ \ / __| | | |/ __| |/ _ \ | '_ \| '__/ _ \ / __/ _ \/ __/ __|/ _ \| '__|
+--| |  | | (_) | | | | (_) | (__| |_| | (__| |  __/ | |_) | | | (_) | (_|  __/\__ \__ \ (_) | |   
+--|_|  |_|\___/|_| |_|\___/ \___|\__, |\___|_|\___| | .__/|_|  \___/ \___\___||___/___/\___/|_|   
+--                                __/ |             | |                                           
+--         
+
+-- *******************************************************************************
+-- Entity Name: ual
+-- Description: This entity represents an Arithmetic Logic Unit (ALU). 
+-- It takes two 32-bit input bit vectors (a, b) 
+-- and a 2-bit input bit vector (op). Depending on the value of op, it performs 
+-- an operation on a and b and passes the result to the output s.
+-- If op = "00", then the sum of a and b is passed to s.
+-- If op = "01", then b is passed to s.
+-- If op = "10", then the difference of a and b is passed to s.
+-- If op = "11", then a is passed to s.
+-- In the case where op is some other value, no operation is defined.
+-- The n output is set to '1' if the result is negative, and '0' otherwise.
+-- Authors: MAHON and LELONG
+-- *******************************************************************************
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

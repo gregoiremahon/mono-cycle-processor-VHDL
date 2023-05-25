@@ -8,6 +8,23 @@
 --                                __/ |             | |                                           
 --                               |___/              |_|                                           
 
+-- *******************************************************************************
+-- Entity Name: processor
+-- Description: This entity represents the main processor unit that integrates all other components of the processor.
+-- It has the following inputs and outputs:
+-- clock: Clock input
+-- reset: Reset signal input
+-- Instruction: 32-bit instruction input
+-- PSR: Processor State Register, 32-bit bidirectional
+-- DATAIN: 32-bit data input
+-- DATAOUT: 32-bit data output for reading
+-- WE: Write Enable signal (1 bit)
+-- The processor entity integrates the Instruction Decoder, UAL (Arithmetic and Logic Unit), and Control Unit.
+-- The Instruction Decoder decodes the incoming instruction and generates control signals for the registers and operators.
+-- The UAL performs arithmetic and logical operations based on the decoded instruction.
+-- The Control Unit manages the state of the processor and controls the data flow.
+-- Authors: MAHON & LELONG
+-- *******************************************************************************
 
 library ieee;
 use ieee.std_logic_1164.all;

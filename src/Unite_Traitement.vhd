@@ -1,3 +1,27 @@
+-- __  __                                   _                                                     
+--|  \/  |                                 | |                                                    
+--| \  / | ___  _ __   ___   ___ _   _  ___| | ___   _ __  _ __ ___   ___ ___  ___ ___  ___  _ __ 
+--| |\/| |/ _ \| '_ \ / _ \ / __| | | |/ __| |/ _ \ | '_ \| '__/ _ \ / __/ _ \/ __/ __|/ _ \| '__|
+--| |  | | (_) | | | | (_) | (__| |_| | (__| |  __/ | |_) | | | (_) | (_|  __/\__ \__ \ (_) | |   
+--|_|  |_|\___/|_| |_|\___/ \___|\__, |\___|_|\___| | .__/|_|  \___/ \___\___||___/___/\___/|_|   
+--                                __/ |             | |                                           
+--         
+
+-- *******************************************************************************
+-- Entity Name: traitement_unit
+-- Description: This entity represents a processing unit. 
+-- It takes several inputs including a clock signal (CLK), write enable signals (We, WrEn), control signals (COM1, COM2), a reset signal (RESET),
+-- an 8-bit immediate input bit vector (imm), and 4-bit address input bit vectors (RW, RA, RB), and a 2-bit operation code (OP).
+-- The processing unit includes a register bank, an ALU, a data memory, a sign extension unit, and two multiplexers.
+-- The register bank (E1) takes inputs from Bus_W, RA, RB, RW, and WE, and outputs Bus_A and Bus_B.
+-- The ALU (E2) takes inputs from OP, Bus_A, and Mux_F_OUT, and outputs ALU_OUT and flag.
+-- The data memory (E3) takes inputs from CLK, Bus_B, ALU_OUT, and WrEn, and outputs Data_OUT.
+-- The sign extension unit (E4) takes input from imm, and outputs EXS_OUT.
+-- The first multiplexer (E5) takes inputs from Bus_B, EXS_OUT, and COM1, and outputs Mux_F_OUT.
+-- The second multiplexer (E6) takes inputs from ALU_OUT, Data_OUT, and COM2, and outputs Bus_W.
+-- Authors: MAHON and LELONG
+-- *******************************************************************************
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
