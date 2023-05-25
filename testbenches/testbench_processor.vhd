@@ -1,3 +1,15 @@
+-- *******************************************************************************
+-- Testbench Name: processor_tb
+-- Description: This testbench is designed to test the functionality of the processor entity.
+-- It simulates the operation of the processor with a series of instructions specified in the instruction_unit entity.
+-- Each instruction is tested individually with an assertion to verify that the result is correct.
+-- If an assertion fails, an error message is displayed.
+-- The test ends when all instructions have been tested.
+-- The testbench includes a clock process to simulate the clock signal and a test process to simulate the instructions.
+-- Authors: MAHON and LELONG
+-- *******************************************************************************
+
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
